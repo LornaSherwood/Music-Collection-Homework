@@ -1,4 +1,6 @@
 require('pg')
+require_relative('../albums.rb')
+require_relative('../artists.rb')
 
 
 class SqlRunner

@@ -7,7 +7,7 @@ class Artists
 
   def initialize(options)
     @id = options['id'] unless options['id'].nil?
-    @name = name
+    @name = options['name']
   end
 
 
@@ -17,8 +17,9 @@ class Artists
       VALUES ('#{name}')
       RETURNING *;
       "
-    artist = SqlRunner.run(sql)[0] #last [0] optional
-    return Artists.new(artist)
+    artist = SqlRunner.run(sql)
+    @id = artist[0]['id'].to_i
+    
   end
 
 
@@ -36,6 +37,11 @@ class Artists
 
   def delete()
     sql = "DELETE FROM artists WHERE id = #{@id};"
+    SqlRunner.run(sql)
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM artists;"
     SqlRunner.run(sql)
   end
 

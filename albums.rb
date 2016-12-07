@@ -7,8 +7,8 @@ class Albums
   def initialize(options)
     @id = options['id'] unless options['id'].nil?
     @title = options['title']
-    @genre = genre['genre']
-    @artist_id = ['artist_id'].to_i
+    @genre = options['genre']
+    @artist_id = options['artist_id'].to_i
   end
 
 
@@ -16,9 +16,10 @@ class Albums
     sql = "
       INSERT INTO albums (title, genre, artist_id) 
       VALUES ('#{title}', '#{genre}', #{artist_id})
+      RETURNING *
     ;"
-    album = SqlRunner.run(sql)[0] #last [0] optional
-    return Album.new(album)
+    albums = SqlRunner.run(sql)
+    @id = albums[0]['id'].to_i
   end
 
 
@@ -36,6 +37,11 @@ class Albums
 
   def delete
     sql = "DELETE FROM albums WHERE id = #{@id};"
+    SqlRunner.run(sql)
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM albums;"
     SqlRunner.run(sql)
   end
 
