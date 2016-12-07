@@ -10,7 +10,6 @@ class Artists
     @name = options['name']
   end
 
-
   def save()
     sql = "
       INSERT INTO artists (name) 
@@ -19,17 +18,15 @@ class Artists
       "
     artist = SqlRunner.run(sql)
     @id = artist[0]['id'].to_i
-    
   end
-
 
   def update()
     sql = "
       UPDATE artists
       SET (name) = 
       ('#{@name}'')
-      WHERE id = #{@id}
-    ;"
+      WHERE id = #{@id};
+    "
     artist = SqlRunner.run(sql)
     return Artist.new(artist)
   end
@@ -51,12 +48,9 @@ class Artists
   end
 
   def self.all()
-
     sql = "SELECT * FROM artists;"
     artists = SqlRunner.run(sql)
     return artists.map { |artist| Artists.new(artist)}
   end
-
-
 
 end

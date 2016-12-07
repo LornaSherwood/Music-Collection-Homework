@@ -1,8 +1,6 @@
 DROP TABLE IF EXISTS albums;
 DROP TABLE IF EXISTS artists;
 
-
-
 CREATE TABLE artists (
   id serial8 primary key,
   name VARCHAR(255)

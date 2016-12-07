@@ -5,7 +5,6 @@ require_relative('artists.rb')
 Albums.delete_all
 Artists.delete_all
 
-
 artist1 = Artists.new ( {'name' => "Razorlight"})
 artist1.save()
 
@@ -23,7 +22,4 @@ album3.save()
 
 
 binding.pry
-
-
-
 nil
